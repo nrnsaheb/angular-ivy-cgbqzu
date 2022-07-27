@@ -21,5 +21,14 @@ export class ProductsComponent implements OnInit {
         console.log(err + 'this is err');
       }
     );
+    // this.service.getProducts2().subscribe(
+    //   (res2) => {
+    //     console.log(res2);
+    //     this.products = res2;
+    //   },
+    //   (err) => {
+    //     console.log(err + 'this is err');
+    //   }
+    // );
   }
 }
