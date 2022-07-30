@@ -28,14 +28,19 @@ export class RegFormComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$'),
+          Validators.pattern(
+            '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[.]+[a-zA-Z0-9.-]{2,5}$'
+          ),
         ],
       ],
       password: ['', [Validators.required]],
-      // confirmPassword: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
     });
   }
   Submit() {
     console.log(this.bioSection.value);
+  }
+  get eMail() {
+    return this.bioSection.get('eMail');
   }
 }

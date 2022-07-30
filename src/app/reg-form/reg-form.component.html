@@ -37,6 +37,14 @@
           aria-required="true"
           formControlName="eMail"
         />
+        <div *ngIf="eMail.invalid && (eMail.dirty || eMail.touched)">
+          <div class="text-danger" *ngIf="eMail.errors['required']">
+            Email is Required
+          </div>
+          <div class="text-danger" *ngIf="eMail.errors['pattern']">
+            Email Address is Invalid.
+          </div>
+        </div>
       </div>
       <div class="form-row">
         <label for="password">PASSWORD</label>
@@ -50,7 +58,7 @@
           formControlName="password"
         />
       </div>
-      <!-- <div class="form-row">
+      <div class="form-row">
         <label for="comfirm_password">CONFIRM PASSWORD</label>
         <input
           type="password"
@@ -61,13 +69,14 @@
           aria-required="true"
           formControlName="confirmPassword"
         />
-      </div> -->
+      </div>
       <div class="form-row-last">
         <input
           type="submit"
           name="register"
           class="register"
           value="Register"
+          [disabled]="bioSection.invalid"
           (click)="Submit()"
         />
         <p>Or<a href="#">Sign in</a></p>
