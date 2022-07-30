@@ -1,6 +1,18 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4 my-3" *ngFor="let prod of products">
+<div class="container text-center">
+  <div class="row mx-auto" *ngIf="products.length > 0">
+    <div
+      class="col-sm-4 my-3"
+      *ngFor="
+        let prod of products
+          | paginate
+            : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index
+      "
+    >
       <div class="card p-3 h-100">
         <img
           class="card-img-top img-fluid"
@@ -46,5 +58,52 @@
         </div>
       </div>
     </div>
+
+    <pagination-controls
+      class="w-100"
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
   </div>
+  <!-- API 2 Call -->
+  <!-- <div class="row">
+    <div class="col-sm-4 my-3" *ngFor="let prod2 of products2">
+      <div class="card p-3 h-100">
+        <img
+          class="card-img-top img-fluid"
+          src="{{ prod2.avatar }}"
+          style="height:200px"
+          alt="Card image cap"
+        />
+        <div class="card-block">
+          <h4 class="card-title">{{ prod2.email }}</h4>
+          <p class="card-text my-3">
+            {{ prod2.first_name }}
+          </p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </div>
+        <div class="card-footer text-center">
+          <button
+            class="btn btn-primary btn-sm float-left"
+            id="left"
+            style="color:white"
+          >
+            {{ prod2.last_name }}
+          </button>
+
+          <button
+            class="btn btn-warning btn-sm"
+            id="center"
+            style="color:white"
+          >
+            {{ prod2.id }} Star
+          </button>
+        </div>
+      </div>
+    </div>
+  </div> -->
 </div>
