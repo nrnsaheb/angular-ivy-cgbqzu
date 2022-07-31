@@ -17,6 +17,8 @@ import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 //  import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from './env';
+import { AngularFirestore } from '@angular/fire/compat/firestore/firestore';
+import { FirestoreModule } from '@angular/fire/firestore/public_api';
 
 @NgModule({
   imports: [
@@ -29,8 +31,8 @@ import { environment } from './env';
     NgxPaginationModule,
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    // FirestoreModule
     // provideFirestore(() => getFirestore()),
-    // AngularFirestoreModule
   ],
   declarations: [
     AppComponent,
