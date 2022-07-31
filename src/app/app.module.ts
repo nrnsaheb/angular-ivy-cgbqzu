@@ -11,6 +11,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule, PaginationConfig } from 'ngx-bootstrap/pagination';
 import { RegFormComponent } from './reg-form/reg-form.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { AuthGuardGuard } from './auth-guard.guard';
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+//  import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { environment } from './env';
 
 @NgModule({
   imports: [
@@ -22,14 +28,18 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     PaginationModule,
     NgxPaginationModule,
     AppRoutingModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    // provideFirestore(() => getFirestore()),
+    // AngularFirestoreModule
   ],
   declarations: [
     AppComponent,
     HelloComponent,
     ProductsComponent,
     RegFormComponent,
+    LoginComponent,
   ],
   bootstrap: [AppComponent],
-  providers: [ProductsService],
+  providers: [ProductsService, AuthGuardGuard],
 })
 export class AppModule {}
