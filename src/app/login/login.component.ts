@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 
 @Component({
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit {
   loginSection: FormGroup;
   constructor(
     // private angularFireAuth: AngularFireAuth,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private readonly router: Router
   ) {}
   loadform() {
     this.loginSection = this.fb.group({
@@ -26,6 +28,7 @@ export class LoginComponent implements OnInit {
   }
   SignIn() {
     console.log(this.loginSection.value.email);
+    this.router.navigate(['/products']);
     // this.angularFireAuth
     //   .signInWithEmailAndPassword(email, password)
     //   .then((res: any) => {

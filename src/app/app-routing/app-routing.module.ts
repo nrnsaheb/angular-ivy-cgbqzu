@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   // { path: 'register', component: RegFormComponent },
-  {path: 'products',component: ProductsComponent,canActivate: [AuthGuardGuard]},
+  { path: 'products/:rating', component: ProductsComponent },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ]; // sets up routes constant where you define your routes
 
