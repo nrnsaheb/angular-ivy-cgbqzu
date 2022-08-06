@@ -545,6 +545,7 @@ export class ProductsComponent implements OnInit {
   tableSize: number = 6;
   rating;
   // textValue: Event;
+  newProducts = [];
   ngOnInit() {
     this.service.getProducts().subscribe(
       (res: any) => {
@@ -552,6 +553,7 @@ export class ProductsComponent implements OnInit {
         this.products = res;
         console.log(this.products);
         this.filterProducts();
+        // this.newProducts = this.products.concat(this.jsonData);
       },
       (err) => {
         console.log(err + 'this is err');
@@ -560,14 +562,17 @@ export class ProductsComponent implements OnInit {
     this.service.getProducts2().subscribe(
       (res2: any) => {
         // console.log(res2.data);
-        this.products2 = res2.data;
-        // res2.data.forEach((element) => {
+        this.products2 = res2.products;
+        console.log(res2.products);
+        // res2.products.forEach((element) => {
         //   // console.log(element);
         //   // this.products.unshift(element);
         // });
         // console.log(this.products);
         this.products.concat(this.products2);
         console.log(this.products);
+        this.newProducts = this.products.concat(res2.products);
+        console.log(this.newProducts);
 
         this.cdr.detectChanges();
       },

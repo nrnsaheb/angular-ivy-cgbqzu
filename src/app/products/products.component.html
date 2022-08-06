@@ -3,7 +3,7 @@
     <div
       class="col-sm-4 my-3"
       *ngFor="
-        let prod of products
+        let prod of newProducts
           | paginate
             : {
                 itemsPerPage: tableSize,
@@ -13,12 +13,16 @@
         let i = index
       "
     >
+      <!-- src="https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/{{
+      prod.filename ? prod.filename : https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/2.jpg
+    }}" -->
       <div class="card p-3 h-100">
         <img
           class="card-img-top img-fluid"
-          src="https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/{{
+          src=" {{ https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/{{
+            prod.filename}} ? https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/{{
             prod.filename
-          }}"
+          }} : prod.thumbnail }}"
           style="height:200px"
           alt="Card image cap"
         />

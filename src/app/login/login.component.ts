@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.loadform();
   }
   SignIn() {
-    console.log(this.loginSection.value.email);
+    // console.log(this.loginSection.value.email);
     this.router.navigate(['/products']);
     // this.angularFireAuth
     //   .signInWithEmailAndPassword(email, password)
