@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reg-form',
@@ -12,14 +14,13 @@ import {
   styleUrls: ['./reg-form.component.css'],
 })
 export class RegFormComponent implements OnInit {
-  // bioSection = new FormGroup({
-  //   userName: new FormControl('',{validators:required}),
-  //   eMail: new FormControl(''),
-  //   password: new FormControl(''),
-  //   confirmPassword: new FormControl(''),
-  // });
-  bioSection: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  bioSection!: FormGroup;
+  // bioSection: any;
+  constructor(
+    private fb: FormBuilder,
+    private auth: AngularFireAuth,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.bioSection = this.fb.group({
@@ -39,8 +40,20 @@ export class RegFormComponent implements OnInit {
   }
   Submit() {
     console.log(this.bioSection.value);
+    this.auth
+      .createUserWithEmailAndPassword(
+        this.bioSection.value.eMail,
+        this.bioSection.value.password
+      )
+      .then((response) => {
+        console.log(response);
+        if (response) {
+          this.router.navigate(['/login']);
+        }
+      });
   }
-  get eMail() {
-    return this.bioSection.get('eMail');
+  get controls() {
+    console.log(this.bioSection.controls);
+    return this.bioSection.controls;
   }
 }

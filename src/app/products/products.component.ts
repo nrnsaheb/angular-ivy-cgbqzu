@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductsService } from '../services/products.service';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+// import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products',
-  templateUrl: 'products.component.html',
+  templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
@@ -17,7 +17,8 @@ export class ProductsComponent implements OnInit {
   title: string = 'This is the product section';
   products: Array<any> = [];
   products2: any = [];
-
+  apiurl3: any =
+    'https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/';
   jsonData = [
     {
       title: 'Brown eggs',
@@ -539,13 +540,14 @@ export class ProductsComponent implements OnInit {
       rating: 3,
     },
   ];
-
+  selectedProduct!: object;
+  binding: any;
   page: number = 1;
   count: number = 0;
   tableSize: number = 6;
-  rating;
+  rating: any;
   // textValue: Event;
-  newProducts = [];
+  newProducts: any = [];
   ngOnInit() {
     this.service.getProducts().subscribe(
       (res: any) => {
@@ -562,6 +564,7 @@ export class ProductsComponent implements OnInit {
     this.service.getProducts2().subscribe(
       (res2: any) => {
         // console.log(res2.data);
+
         this.products2 = res2.products;
         console.log(res2.products);
         // res2.products.forEach((element) => {
@@ -572,7 +575,9 @@ export class ProductsComponent implements OnInit {
         this.products.concat(this.products2);
         console.log(this.products);
         this.newProducts = this.products.concat(res2.products);
-        console.log(this.newProducts);
+        console.log(this.newProducts.thumbnail);
+        this.selectedProduct = this.newProducts[0];
+        console.log(this.selectedProduct);
 
         this.cdr.detectChanges();
       },
@@ -580,7 +585,6 @@ export class ProductsComponent implements OnInit {
         console.log(err + 'this is err');
       }
     );
-
     this.activatedRoute.params.subscribe((param) => {
       console.log(param);
       this.rating = param['rating'];
@@ -607,5 +611,9 @@ export class ProductsComponent implements OnInit {
       }
     });
     console.log(product, 'products');
+  }
+  selectProduct(param1: any) {
+    console.log(param1);
+    this.selectedProduct = param1;
   }
 }

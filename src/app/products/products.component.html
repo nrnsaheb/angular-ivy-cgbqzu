@@ -1,36 +1,37 @@
 <div class="container text-center">
-  <div class="row mx-auto" *ngIf="products.length > 0">
+  <div class="input-group rounded">
+    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" [(ngModel)]="binding" />
+    <span class="input-group-text border-0" id="search-addon">
+      <i class="fas fa-search"></i>
+    </span>
+  </div>
+  <div class="row mx-auto" *ngIf="(newProducts | search:binding) as results">
+    <!-- <div *ngFor="let data of newProducts | search: binding"> -->
     <div
       class="col-sm-4 my-3"
       *ngFor="
-        let prod of newProducts
-          | paginate
+        let prod of results
+        | paginate
             : {
                 itemsPerPage: tableSize,
                 currentPage: page,
                 totalItems: count
               };
         let i = index
-      "
-    >
+      ">
       <!-- src="https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/{{
       prod.filename ? prod.filename : https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/2.jpg
     }}" -->
-      <div class="card p-3 h-100">
+      <div class="card p-3 h-100" [ngClass]="{'blue':selectedProduct === prod }" (click)="selectProduct(prod)">
         <img
           class="card-img-top img-fluid"
-          src=" {{ https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/{{
-            prod.filename}} ? https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/{{
-            prod.filename
-          }} : prod.thumbnail }}"
+          src="{{apiurl3}}{{prod.filename}}"
+          srcset="{{prod.thumbnail}}"
           style="height:200px"
-          alt="Card image cap"
-        />
+          alt="Card image cap" />
         <div class="card-block">
-          <h4 class="card-title">{{ prod.title }}</h4>
-          <p class="card-text my-3">
-            {{ prod.description }}
-          </p>
+          <h4 class="card-title" [ngStyle]="{'color':selectedProduct===prod ? 'white' : '#6c757d'}">{{ prod.title }}</h4>
+          <p class="card-text my-3"> {{ prod.description }} </p>
           <p class="card-text">
             <small class="text-muted">Last updated 3 mins ago</small>
           </p>
@@ -39,75 +40,24 @@
           <button
             class="btn btn-primary btn-sm float-left"
             id="left"
-            style="color:white"
-          >
-            ${{ prod.price }} USD
-          </button>
-
+            style="color:white"> ${{ prod.price }} USD </button>
           <button
             class="btn btn-warning btn-sm"
             id="center"
-            style="color:white"
-          >
-            * {{ prod.rating }} Star
-          </button>
-
+            style="color:white"> * {{ prod.rating }} Star </button>
           <button
             class="btn btn-danger btn-sm float-right"
             id="right"
-            style="color:white"
-          >
-            {{ prod.type }}
-          </button>
+            style="color:white"> {{ prod.type }} </button>
         </div>
       </div>
     </div>
-
+    <div *ngIf="results.length ===0" class="text-center w-100">not found </div>
     <pagination-controls
       class="w-100"
       previousLabel="Prev"
       nextLabel="Next"
-      (pageChange)="onTableDataChange($event)"
-    >
+      (pageChange)="onTableDataChange($event)">
     </pagination-controls>
   </div>
-  <!-- API 2 Call -->
-  <!-- <div class="row">
-    <div class="col-sm-4 my-3" *ngFor="let prod2 of products2">
-      <div class="card p-3 h-100">
-        <img
-          class="card-img-top img-fluid"
-          src="{{ prod2.avatar }}"
-          style="height:200px"
-          alt="Card image cap"
-        />
-        <div class="card-block">
-          <h4 class="card-title">{{ prod2.email }}</h4>
-          <p class="card-text my-3">
-            {{ prod2.first_name }}
-          </p>
-          <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </p>
-        </div>
-        <div class="card-footer text-center">
-          <button
-            class="btn btn-primary btn-sm float-left"
-            id="left"
-            style="color:white"
-          >
-            {{ prod2.last_name }}
-          </button>
-
-          <button
-            class="btn btn-warning btn-sm"
-            id="center"
-            style="color:white"
-          >
-            {{ prod2.id }} Star
-          </button>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </div>

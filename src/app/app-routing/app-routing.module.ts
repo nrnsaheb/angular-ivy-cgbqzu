@@ -9,8 +9,12 @@ import { AuthGuardGuard } from '../auth-guard.guard';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  // { path: 'register', component: RegFormComponent },
-  { path: 'products', component: ProductsComponent },
+  { path: 'register', component: RegFormComponent },
+  {
+    path: 'products',
+    component: ProductsComponent,
+    canActivate: [AuthGuardGuard],
+  },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ]; // sets up routes constant where you define your routes
 

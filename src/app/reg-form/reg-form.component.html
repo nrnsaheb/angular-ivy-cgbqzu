@@ -3,8 +3,7 @@
     <div class="form-left">
       <img
         src="https://colorlib.com/etc/regform/colorlib-regform-33/images/form-v7.jpg"
-        alt="form"
-      />
+        alt="form" />
       <p class="text-1">Sign Up</p>
       <p class="text-2">Privaci policy &amp; Term of service</p>
     </div>
@@ -14,49 +13,41 @@
       method="post"
       id="myform"
       novalidate="novalidate"
-      [formGroup]="bioSection"
-    >
+      [formGroup]="bioSection">
       <div class="form-row">
         <label for="username">USERNAME</label>
         <input
           type="text"
-          name="username"
-          id="username"
           class="input-text"
-          formControlName="userName"
-        />
+          formControlName="userName" />
       </div>
       <div class="form-row">
         <label for="your_email">E-MAIL</label>
         <input
           type="text"
-          name="your_email"
-          id="your_email"
           class="input-text"
           required=""
           aria-required="true"
-          formControlName="eMail"
-        />
-        <div *ngIf="eMail.invalid && (eMail.dirty || eMail.touched)">
-          <div class="text-danger" *ngIf="eMail.errors['required']">
-            Email is Required
-          </div>
-          <div class="text-danger" *ngIf="eMail.errors['pattern']">
-            Email Address is Invalid.
-          </div>
+          formControlName="eMail" />
+        <div *ngIf="controls['eMail'].invalid && (controls['eMail'].dirty || controls['eMail'].touched)">
+          <div class="text-danger" *ngIf="controls['eMail']?.errors?.['required']"> Email is Required </div>
+          <div class="text-danger" *ngIf="controls['eMail']?.errors?.['pattern']"> Email Address is Invalid. </div>
+          <!-- <div class=" text-danger" *ngIf="eMail.errors['pattern']"> Email Address is Invalid. </div> -->
         </div>
+        <!-- <div *ngIf="eMail['eMail'].invalid">
+          <div> Email is Required </div>
+          <div class="text-danger" *ngIf="eMail.errors['pattern']"> Email Address is Invalid. </div>
+        </div> -->
       </div>
       <div class="form-row">
         <label for="password">PASSWORD</label>
         <input
           type="password"
           name="password"
-          id="password"
           class="input-text"
           required=""
           aria-required="true"
-          formControlName="password"
-        />
+          formControlName="password" />
       </div>
       <div class="form-row">
         <label for="comfirm_password">CONFIRM PASSWORD</label>
@@ -67,8 +58,12 @@
           class="input-text"
           required=""
           aria-required="true"
-          formControlName="confirmPassword"
-        />
+          formControlName="confirmPassword" />
+        <div *ngIf="controls['password'].value!==controls['confirmPassword'].value">
+          <!-- <div class="text-danger" *ngIf="controls['eMail']?.errors?.['required']"> Email is Required </div> -->
+          <div class="text-danger"> Password does not match</div>
+          <!-- <div class=" text-danger" *ngIf="eMail.errors['pattern']"> Email Address is Invalid. </div> -->
+        </div>
       </div>
       <div class="form-row-last">
         <input
@@ -77,8 +72,7 @@
           class="register"
           value="Register"
           [disabled]="bioSection.invalid"
-          (click)="Submit()"
-        />
+          (click)="Submit()" />
         <p>Or<a href="#">Sign in</a></p>
       </div>
     </form>

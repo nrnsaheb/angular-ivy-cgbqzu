@@ -8,17 +8,20 @@ import { ProductsService } from './services/products.service';
 import { ProductsComponent } from './products/products.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { PaginationModule, PaginationConfig } from 'ngx-bootstrap/pagination';
+// import { PaginationModule, PaginationConfig } from 'ngx-bootstrap/pagination';
 import { RegFormComponent } from './reg-form/reg-form.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardGuard } from './auth-guard.guard';
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
-//  import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from './env';
+import { SearchPipe } from './search.pipe';
 import { AngularFirestore } from '@angular/fire/compat/firestore/firestore';
 import { FirestoreModule } from '@angular/fire/firestore/public_api';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
   imports: [
@@ -27,12 +30,12 @@ import { FirestoreModule } from '@angular/fire/firestore/public_api';
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
-    PaginationModule,
+    // PaginationModule,
     NgxPaginationModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
     AppRoutingModule,
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    // FirestoreModule
-    // provideFirestore(() => getFirestore()),
   ],
   declarations: [
     AppComponent,
@@ -40,6 +43,7 @@ import { FirestoreModule } from '@angular/fire/firestore/public_api';
     ProductsComponent,
     RegFormComponent,
     LoginComponent,
+    SearchPipe,
   ],
   bootstrap: [AppComponent],
   providers: [ProductsService, AuthGuardGuard],
